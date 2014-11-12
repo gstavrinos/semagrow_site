@@ -1,0 +1,25 @@
+<html>
+<head>
+	<title>SemaGrow</title>
+	<img id="logo" src="images/logo.png"/>
+        <link href="YASQE/dist/yasqe.css" rel="stylesheet" type="text/css" />
+        <link href="YASR/dist/yasr.css" rel="stylesheet" type="text/css" />
+        <link href="query_viz/qp.css" rel="stylesheet" type="text/css" />
+</head>
+<body background="images/bg.png" style="background-repeat:repeat-x;">
+<p>Endpoint"s url: <input type="text" id="txt" value="http://143.233.226.43:8080/SemaGrow/sparql" onchange="changeEndpoint(this.value)" size="40">
+ <button id="explain_button" type="button" style="float: right;" onclick="explain_()">Explain Query</button> 
+ <button id="decompose_button" type="button" style="float: right;" onclick="decompose_()">Decompose Query</button></p>
+<div id="queryText"></div>
+<hr>
+<div id="result2"></div>
+<iframe id="tree" src="Jit/stav.html" style="position:relative; top:0px; left:0px; bottom:0px; right:0px; width:1024px; height:400px; margin:0; padding:0;display:none;"></iframe> 
+<hr>
+<div id="result"></div>
+<script src="YASQE/dist/yasqe.js"></script>
+<script src="YASR/dist/yasr.js"></script>
+<script src="query_viz/qp.js"></script>
+<script src="query_viz/jquery-2.1.1.min.js"></script>
+<script src="scripts/stav.js"></script>
+</body>
+</html>
