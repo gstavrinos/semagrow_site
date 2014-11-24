@@ -54,6 +54,10 @@ function changeEndpoint(val) {
     yasqe.options.sparql.endpoint = url;
 }
 function explain_(){
+		var menu = document.getElementById("sample_queries");
+		if ($(menu).is(":visible")) {
+			$(menu).animate({width: 0}, 1000, function() {$(menu).hide();});
+		}
 		document.getElementById('tree').src = document.getElementById('tree').src;
 		document.getElementById("result2").style.display="block";
 		document.getElementById("tree").style.display="none";
@@ -86,6 +90,10 @@ function explain_(){
 	}  
     }
 function decompose_(){
+		var menu = document.getElementById("sample_queries");
+		if ($(menu).is(":visible")) {
+			$(menu).animate({width: 0}, 1000, function() {$(menu).hide();});
+		}
 		document.getElementById('tree').src = document.getElementById('tree').src;
 		document.getElementById("result2").style.display="block";
 		document.getElementById("tree").style.display="none";
@@ -132,17 +140,6 @@ function stringToJSON(s){
 	var nodes = [];
 	for(i = 0;i < rows.length-1;i++){//length-1 because the servers sends an empty line at the end
 		var name = rows[i].replace(/^\s+/, function(m){ return m.replace(/\s/g, '');});
-		//var no_tabs = rows[i].replace(/\s+$/, '');
-		//var no_tabs = rows[i].replace(/\s/g, "");
-		/*var name,data;
-		if(no_tabs.indexOf(' ') >= 0){
-			name = no_tabs.substr(0,no_tabs.indexOf(' '));
-			data = no_tabs.substr(no_tabs.indexOf(' ')+1);
-		}
-		else{
-			name = no_tabs;
-			data = name;
-		}*/
 		var jsn = {
 			id: "node"+i,
 			name: name,
@@ -179,4 +176,62 @@ function stringToJSON(s){
 	
 	//console.log(JSON.stringify(rtn, undefined, 2));
 	return available[0];
+}
+
+	function samples_(){
+			 var menu = document.getElementById("sample_queries");
+			 getSamples();
+    if ($(menu).is(":visible")) {
+        $(menu).animate({width: 0}, 1000, function() {$(menu).hide();});
+    } else {
+        $(menu).show().animate({width: "100%"}, 1000);           
+    }
+}
+
+function getSamples(){
+	var ajaxConfig = {
+		url : document.getElementById("txt").value.substring(0, document.getElementById("txt").value.length - 6)+"samples",
+		type : "GET",
+		data : [ {
+			name : "samples"
+		} ],
+		 success : function(data) { 
+			document.getElementById("table").innerHTML = data ;
+			$("#table").find("tr").click( function(){
+				if($(this).parent().index() != 0){
+					var menu = document.getElementById("sample_queries");
+					if ($(menu).is(":visible")) {
+						$(menu).animate({width: 0}, 1000, function() {$(menu).hide();});
+					}
+					var query = $(this).find("td:nth-child(3)").text();
+					yasqe.setValue(query+"\n");//Line break in the end, because this method is made for code that consists of more that 1 lines
+				}
+			});
+			$("#table").find("tr").mouseout( function(){
+				if($(this).parent().index() != 0){
+					restoreBackgroundColor(this);
+				}
+			});
+			$("#table").find("tr").mouseover( function(){
+				if($(this).parent().index() != 0){
+					changeBackgroundColor(this);
+					$(this).css('cursor','pointer');
+				}
+			});
+			},
+		error: function(data, textStatus, error){
+			document.getElementById("table").innerHTML="<pre><font size=\"3\" color=\"red\">ERROR:"+data.responseText+"</font></pre>" 
+		}
+		
+		};
+		
+		$.ajax(ajaxConfig); 
+}
+
+function changeBackgroundColor(row) { 
+	row.style.backgroundColor = "#96ba8a"; 
+}
+
+function restoreBackgroundColor(row) { 
+	row.style.backgroundColor = ""; 
 }

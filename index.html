@@ -1,15 +1,26 @@
 <html>
 <head>
-	<title>SemaGrow</title>
-	<img id="logo" src="images/logo.png"/>
-        <link href="YASQE/dist/yasqe.css" rel="stylesheet" type="text/css" />
-        <link href="YASR/dist/yasr.css" rel="stylesheet" type="text/css" />
-        <link href="query_viz/qp.css" rel="stylesheet" type="text/css" />
+<title>SemaGrow</title>
+<img id="logo" src="images/logo.png"/>
+<link href="YASQE/dist/yasqe.css" rel="stylesheet" type="text/css" />
+<link href="YASR/dist/yasr.css" rel="stylesheet" type="text/css" />
+<link href="query_viz/qp.css" rel="stylesheet" type="text/css" />
 </head>
 <body background="images/bg.png" style="background-repeat:repeat-x;">
-<p>Endpoint"s url: <input type="text" id="txt" value="http://143.233.226.43:8080/SemaGrow/sparql" onchange="changeEndpoint(this.value)" size="40">
- <button id="explain_button" type="button" style="float: right;" onclick="explain_()">Explain Query</button> 
- <button id="decompose_button" type="button" style="float: right;" onclick="decompose_()">Decompose Query</button></p>
+<div id="sample_queries" style="height: 40%;width: 0px;border: 1px solid black;display: none;z-index:0;overflow:auto">
+<h3>Sample Queries</h3>
+<table id="table" style="width:100%;border: 1px solid black;border-collapse: collapse;padding: 5px;text-align: left;">
+<tr>
+<th>Title</th>
+<th>Description</th>		
+<th>SPARQL Query</th>
+</tr>
+</table>
+</div>
+<p>Endpoint's url: <input type="text" id="txt" value="http://143.233.226.43:8080/SemaGrow/sparql" onchange="changeEndpoint(this.value)" size="40">
+<button id="explain_button" type="button" style="float: right;" onclick="explain_()">Explain Query</button> 
+<button id="decompose_button" type="button" style="float: right;" onclick="decompose_()">Decompose Query</button>
+<button id="samples_button" type="button" style="float: right;" onclick="samples_()">Sample Queries</button> </p>
 <div id="queryText"></div>
 <hr>
 <div id="result2"></div>
